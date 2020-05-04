@@ -1,13 +1,11 @@
-FROM golang:1.8.3
+FROM golang:1.14.2
 
-LABEL maintainer="Yu Jin"
+WORKDIR /go/src/github.com/yujinlim/blockchain-monitoring
+ADD go.mod go.sum /go/src/github.com/yujinlim/blockchain-monitoring/
+RUN go mod download
+ADD . .
+RUN go build -o /go/bin/blockchain-monitoring .
 
-ARG package_name=github.com/yujinlim/blockchain-monitoring
-ARG workdir=$GOPATH/src/$package_name
-
-WORKDIR $GOPATH
-
-ADD . $workdir
-RUN go install $package_name
-
-ENTRYPOINT ["blockchain-monitoring"]
+FROM debian
+COPY --from=0 /go/bin/blockchain-monitoring /bin/blockchain-monitoring
+ENTRYPOINT ["/bin/blockchain-monitoring"]

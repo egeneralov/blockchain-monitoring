@@ -34,3 +34,4 @@ Vagrantfile
 .editorconfig
 .gitignore
 readme.md
+vendor

@@ -27,3 +27,4 @@ prometheus-coin-monitoring
 .vagrant/
 
 # End of https://www.gitignore.io/api/vagrant
+.vendor
